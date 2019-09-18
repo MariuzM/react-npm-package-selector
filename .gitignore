@@ -1,0 +1,6 @@
+.cache
+.DS_Store
+.eslintrc
+.prettierrc
+node_modules
+dist
