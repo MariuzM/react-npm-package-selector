@@ -5,28 +5,31 @@ import React, { Component } from 'react'
 
 const datas = require('./db.json')
 
-const CheckboxOrRadioGroup = props => (
-  <div>
-    <label>{props.title}</label>
-    <div className="checkbox-group">
-      {props.options.map(e => {
-        return (
-          <label key={e}>
-            <input
-              className="form-checkbox"
-              name={props.setName}
-              onChange={props.controlFunc}
-              value={e}
-              checked={props.selectedOptions.indexOf(e) > -1}
-              type={props.type}
-            />
-            {e}
-          </label>
-        )
-      })}
+const CheckboxOrRadioGroup = props => {
+  const { title, options, setName, controlFunc, selectedOptions, type } = props
+  return (
+    <div>
+      <label>{title}</label>
+      <div className="checkbox-group">
+        {options.map(e => {
+          return (
+            <label key={e}>
+              <input
+                className="form-checkbox"
+                name={setName}
+                onChange={controlFunc}
+                value={e}
+                checked={selectedOptions.indexOf(e) > -1}
+                type={type}
+              />
+              {e}
+            </label>
+          )
+        })}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default class FormContainer extends Component {
   constructor(props) {
@@ -44,19 +47,21 @@ export default class FormContainer extends Component {
   }
 
   handleDepSel(e) {
+    const { selectedDep } = this.state
     const newSelection = e.target.value
     let newSelectionArray
-    if (this.state.selectedDep.indexOf(newSelection) > -1) {
-      newSelectionArray = this.state.selectedDep.filter(s => s !== newSelection)
+    if (selectedDep.indexOf(newSelection) > -1) {
+      newSelectionArray = selectedDep.filter(s => s !== newSelection)
+      // console.log('test')
     } else {
-      newSelectionArray = [...this.state.selectedDep, newSelection]
+      newSelectionArray = [...selectedDep, newSelection]
+      console.log(newSelectionArray)
     }
-    this.setState({ selectedDep: newSelectionArray }, () =>
-      console.log(this.state.selectedDep),
-    )
+    this.setState({ selectedDep: newSelectionArray })
   }
 
   render() {
+    const { dependencies, selectedDep } = this.state
     return (
       <div>
         <CheckboxOrRadioGroup
@@ -64,10 +69,10 @@ export default class FormContainer extends Component {
           setName="Deps"
           type="checkbox"
           controlFunc={this.handleDepSel}
-          options={this.state.dependencies}
-          selectedOptions={this.state.selectedDep}
+          options={dependencies}
+          selectedOptions={selectedDep}
         />
-        <div>{this.state.selectedDep}</div>
+        <div>{selectedDep}</div>
       </div>
     )
   }
