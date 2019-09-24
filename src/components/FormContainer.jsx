@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { Component } from 'react'
 
 const datas = require('./db.json')
@@ -40,11 +41,11 @@ const CheckboxOrRadioGroup = ({
 }
 
 export default class FormContainer extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
-      dependencies2: [],
       dependencies: [],
+      dependencies2: [],
       selectedDep: [],
     }
     this.handleDepSel = this.handleDepSel.bind(this)
@@ -52,11 +53,8 @@ export default class FormContainer extends Component {
 
   componentDidMount() {
     const { dependencies2, dependencies } = datas
-    this.setState({ dependencies })
-    console.log(dependencies)
-
-    this.setState({ dependencies2 })
-    console.log(dependencies2)
+    this.setState({ dependencies, dependencies2 })
+    console.log(dependencies, dependencies2)
   }
 
   handleDepSel(e) {
@@ -75,8 +73,8 @@ export default class FormContainer extends Component {
   render() {
     const {
       dependencies,
-      selectedDep,
       dependencies2: { react },
+      selectedDep,
     } = this.state
 
     console.log('TypeOf', typeof dependencies, '== Dependencies :', dependencies)

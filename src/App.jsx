@@ -79,7 +79,17 @@
 
 import React from 'react'
 import FormContainer from './components/FormContainer'
+import Test from './components/Test'
+import Test2 from './components/Test2'
+import Test3 from './components/Test3'
 
 export default function App() {
-  return <FormContainer />
+  return (
+    <>
+      {/* <FormContainer /> */}
+      {/* <Test /> */}
+      <Test2 />
+      {/* <Test3 /> */}
+    </>
+  )
 }
