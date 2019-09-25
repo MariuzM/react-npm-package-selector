@@ -11,6 +11,18 @@ const npmCopy = `npm install --save-dev`
 
 export default function App() {
   const [data, setData] = React.useState(dataState)
+  const [npmData, setNpmData] = React.useState()
+
+  const handleAllChecked = el => {
+    Object.entries(data).map((e, id) => {
+      e[1].isChecked = el.target.checked
+      return setData(
+        data.map(item =>
+          item.id === id ? { ...item, isChecked: el.target.checked } : item,
+        ),
+      )
+    })
+  }
 
   const handleCheckElement = (el, id, val) => {
     setData(
@@ -19,22 +31,17 @@ export default function App() {
       ),
     )
   }
-  console.log(data)
 
-  React.useEffect(() => {
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].isChecked) {
-        console.log(data, data[i], data[i] === true)
-      }
-    }
-  }, [data])
-
-  const handleAllChecked = el => {
-    Object.entries(data).map((e, id) => {
-      e[1].isChecked = el.target.checked
-      return setData({ ...data, [id - 1]: { ...data[id - 1] } })
-    })
-  }
+  // React.useEffect(() => {
+  //   for (let i = 0; i < data.length; i++) {
+  //     if (data[i].isChecked) {
+  //       console.log(data[i].npmValue)
+  //       // setData(
+  //       //   test.map(item => (item[i].isChecked ? console.log('yes') : console.log('no'))),
+  //       // )
+  //     }
+  //   }
+  // }, [data])
 
   const OutPutValues = () => (
     <div className="Test">
