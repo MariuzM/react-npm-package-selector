@@ -1,95 +1,76 @@
-// import React, { useState, useEffect } from 'react'
-// import { Form } from 'react-bootstrap'
-// import npmPackages from './dataBase'
-// import Test from './components/Test'
-
-// const divStyle = { backgroundColor: 'grey' }
-
-// export default function App() {
-//   // const { dependencies, devDependencies } = npmPackages
-//   // const [state, setState] = React.useState(dependencies)
-
-//   // const handleCheckChieldElement = event => {
-//   //   dependencies.forEach(e => {
-//   //     if (e.id === event.target.id) {
-//   //       e.isChecked = event.target.checked
-//   //       setState(state)
-//   //     }
-//   //   })
-//   // }
-
-//   // function test() {
-//   //   React.useEffect(() =>
-//   //     fetch('./fake_db.json')
-//   //       .then(res => res.json())
-//   //       .then(data => {
-//   //         console.log(data)
-//   //       }),
-//   //   )
-//   //   return null
-//   // }
-
-//   // const handlePetSelection = e => {
-//   //   const newSelection = e.target.value
-//   //   let newSelectionArray
-//   //   if (state.key.indexOf(newSelection) > -1) {
-//   //     newSelectionArray = state.selectedPets.filter(s => s !== newSelection)
-//   //   } else {
-//   //     newSelectionArray = [...state.selectedPets, newSelection]
-//   //   }
-//   //   setState({ selectedPets: newSelectionArray }, () =>
-//   //     console.log('pet selection', state.selectedPets),
-//   //   )
-//   // }
-
-//   return (
-//     <>
-//       <Test />
-//       {/* <button type="button" onClick={test}>
-//         Test
-//       </button> */}
-//       {/* <div>
-//         {dependencies.map(e => {
-//           const { id, name, isChecked } = e
-//           return (
-//             <Form.Group controlId={id} key={id}>
-//               <Form.Check
-//                 type="checkbox"
-//                 label={name}
-//                 onClick={handleCheckChieldElement}
-//               />
-//             </Form.Group>
-//           )
-//         })}
-//       </div>
-//       <br /> */}
-//       {/* <div style={divStyle}>
-//         {devDependencies.map(e => {
-//           const { id, name } = e
-//           return (
-//             <Form.Group controlId={id} key={id}>
-//               <Form.Check type="checkbox" label={name} />
-//             </Form.Group>
-//           )
-//         })}
-//       </div> */}
-//     </>
-//   )
-// }
-
 import React from 'react'
-import FormContainer from './components/FormContainer'
-import Test from './components/Test'
-import Test2 from './components/Test2'
-import Test3 from './components/Test3'
+
+const dataState = [
+  { id: 1, value: 'Test 1', npmValue: 'test-1', isChecked: false },
+  { id: 2, value: 'Test 2', npmValue: 'test-2', isChecked: false },
+  { id: 3, value: 'Test 3', npmValue: 'test-3', isChecked: false },
+  { id: 4, value: 'Test 4', npmValue: 'test-4', isChecked: false },
+]
+
+const npmCopy = `npm install --save-dev`
 
 export default function App() {
+  const [data, setData] = React.useState(dataState)
+
+  const handleCheckElement = (el, id, val) => {
+    setData(
+      data.map(item =>
+        item.id === id ? { ...item, isChecked: el.target.checked } : item,
+      ),
+    )
+  }
+  console.log(data)
+
+  React.useEffect(() => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].isChecked) {
+        console.log(data, data[i], data[i] === true)
+      }
+    }
+  }, [data])
+
+  const handleAllChecked = el => {
+    Object.entries(data).map((e, id) => {
+      e[1].isChecked = el.target.checked
+      return setData({ ...data, [id - 1]: { ...data[id - 1] } })
+    })
+  }
+
+  const OutPutValues = () => (
+    <div className="Test">
+      {npmCopy}
+
+      {Object.entries(data).map(e => {
+        if (e[1].isChecked === true) {
+          return <span key={e[1].id}>{` ${e[1].npmValue}`}</span>
+        }
+        return null
+      })}
+    </div>
+  )
+
   return (
     <>
-      {/* <FormContainer /> */}
-      {/* <Test /> */}
-      <Test2 />
-      {/* <Test3 /> */}
+      <div className="App">
+        <h1>Check and Uncheck All Example</h1>
+        <input type="checkbox" onChange={handleAllChecked} />
+        Check / Uncheck All
+        <ul>
+          {Object.entries(data).map(e => {
+            return (
+              <form key={e[1].id}>
+                <input
+                  type="checkbox"
+                  checked={e[1].isChecked}
+                  onChange={el => handleCheckElement(el, e[1].id, e[1].npmValue)}
+                />
+                {e[1].value}
+              </form>
+            )
+          })}
+        </ul>
+      </div>
+      <OutPutValues />
     </>
   )
 }

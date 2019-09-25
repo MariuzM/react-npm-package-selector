@@ -1,7 +1,0 @@
-{
-  "dependencies": ["react", "react-bootstrap", "react-dom"],
-  "dependencies2": {
-    "react": ["react", "react-bootstrap", "react-dom"],
-    "npm": ["npm1", "npm2"]
-  }
-}
