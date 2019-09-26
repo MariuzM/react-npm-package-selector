@@ -32,16 +32,18 @@ export default function App() {
     )
   }
 
-  // React.useEffect(() => {
-  //   for (let i = 0; i < data.length; i++) {
-  //     if (data[i].isChecked) {
-  //       console.log(data[i].npmValue)
-  //       // setData(
-  //       //   test.map(item => (item[i].isChecked ? console.log('yes') : console.log('no'))),
-  //       // )
-  //     }
-  //   }
-  // }, [data])
+  React.useEffect(() => {
+    setNpmData(
+      data.map(item => {
+        if (item.isChecked) {
+          return `${item.value} = ${item.isChecked}`
+        }
+        return null
+      }),
+    )
+  }, [data])
+
+  console.log(npmData)
 
   const OutPutValues = () => (
     <div className="Test">
@@ -49,7 +51,7 @@ export default function App() {
 
       {Object.entries(data).map(e => {
         if (e[1].isChecked === true) {
-          return <span key={e[1].id}>{` ${e[1].npmValue}`}</span>
+          return ` ${e[1].npmValue}`
         }
         return null
       })}
