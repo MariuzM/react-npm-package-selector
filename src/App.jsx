@@ -1,4 +1,7 @@
 import React from 'react'
+import Checkbox from '@material-ui/core/Checkbox'
+
+import './App.css'
 
 const dataState = [
   { id: 1, value: 'Test 1', npmValue: 'test-1', isChecked: false },
@@ -46,7 +49,7 @@ export default function App() {
   console.log(npmData)
 
   const OutPutValues = () => (
-    <div className="Test">
+    <div className="field">
       {npmCopy}
 
       {Object.entries(data).map(e => {
@@ -62,13 +65,14 @@ export default function App() {
     <>
       <div className="App">
         <h1>Check and Uncheck All Example</h1>
-        <input type="checkbox" onChange={handleAllChecked} />
+        <Checkbox type="checkbox" onChange={handleAllChecked} />
         Check / Uncheck All
         <ul>
           {Object.entries(data).map(e => {
             return (
               <form key={e[1].id}>
-                <input
+                <Checkbox
+                  color="primary"
                   type="checkbox"
                   checked={e[1].isChecked}
                   onChange={el => handleCheckElement(el, e[1].id, e[1].npmValue)}

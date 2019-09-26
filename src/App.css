@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #673ab7;
+  color: #000000;
+  background: linear-gradient(to right, #957bd3, #526bb1);
+}
+
+.App {
+  padding: 40px 40px 0 40px;
+}
+
+.field {
+  margin: 10px;
+  padding: 20px;
+  border-radius: 4px;
+  position: relative;
+  background-color: #ffffff4d;
+  transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out;
+}
+
+.field:hover {
+  background-color: #ffffff73;
+  box-shadow: 0px 4px 20px 0px #0000000d;
+}
