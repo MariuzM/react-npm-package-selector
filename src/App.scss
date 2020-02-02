@@ -25,3 +25,14 @@ body {
   background-color: #ffffff73;
   box-shadow: 0px 4px 20px 0px #0000000d;
 }
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // height: 100vh;
+  width: 100vw;
+  &:focus {
+    outline: none;
+  }
+}
